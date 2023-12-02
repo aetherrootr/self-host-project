@@ -1,0 +1,10 @@
+version: '3.3'
+services:
+    cloud-clipboard:
+        container_name: cloud-clipboard
+        restart: unless-stopped
+        ports:
+            - '9501:9501'
+        image: 'aethertaberu/cloud-clipboard:latest'
+        volumes:
+            - ./config.json:/app/server-node/config.json
