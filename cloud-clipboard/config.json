@@ -1,0 +1,19 @@
+{
+    "server": {
+        "host": null,
+        "port": 9501,
+        "key": null,
+        "cert": null,
+        "forceWss": true,
+        "history": 15,
+        "auth": false
+    },
+    "text": {
+        "limit": 10240
+    },
+    "file": {
+        "expire": 3600,
+        "chunk": 5242880,
+        "limit": 1073741825
+    }
+}
