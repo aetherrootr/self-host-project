@@ -1,0 +1,146 @@
+version: "3"
+
+volumes:
+  anime-data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /media/data0/anime
+      o: bind
+  
+  movies-data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /media/data0/movies
+      o: bind
+
+  tvshows-data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /media/data0/anime
+      o: bind
+
+  download-data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /media/data0/download
+      o: bind
+
+
+services:
+  jellyfin:
+    image: nyanmisaka/jellyfin:latest
+    container_name: jellyfin
+    environment:
+      - PUID=0
+      - PGID=0
+      - TZ=Asia/Shanghai
+    volumes:
+      - /home/aether/.media_streaming_stack/jellyfin_config:/config
+      - /media/data0/:/data/
+    ports:
+      - 8096:8096
+    devices:
+      - /dev/dri:/dev/dri
+    restart: unless-stopped
+
+  sonarr:
+    image: linuxserver/sonarr
+    container_name: sonarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Shanghai
+    volumes:
+      - /home/aether/.media_streaming_stack/sonarr_config:/config
+      - anime-data:/anime
+      - tvshows-data:/tvshows
+      - download-data:/downloads
+    ports:
+      - 8989:8989
+    restart: unless-stopped
+
+  radarr:
+    image: linuxserver/radarr
+    container_name: radarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Shanghai
+    volumes:
+      - /home/aether/.media_streaming_stack/radarr_config:/config
+      - download-data:/downloads
+      - movies-data:/movies
+    ports:
+      - 7878:7878
+    restart: unless-stopped
+
+  bazarr:
+    image: linuxserver/bazarr
+    container_name: bazarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Shanghai
+    volumes:
+      - /home/aether/.media_streaming_stack/bazarr_config:/config
+      - movies-data:/movies
+      - tvshows-data:/tvshows
+      - anime-data:/anime
+    ports:
+      - 6767:6767
+    restart: unless-stopped
+
+  jellyseerr:
+    image: fallenbagel/jellyseerr
+    container_name: jellyseerr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - LOG_LEVEL=debug
+      - TZ=Asia/Shanghai
+    ports:
+      - 5055:5055
+    volumes:
+      - /home/aether/.media_streaming_stack/jellyseerr_config:/app/config
+    restart: unless-stopped
+    depends_on:
+      - radarr
+      - sonarr
+
+  jackett:
+    image: linuxserver/jackett
+    container_name: jackett
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Shanghai
+      - AUTO_UPDATE=true
+    volumes:
+      - /home/aether/.media_streaming_stack/jackett:/config
+      - /media/data0/jackett/downloads:/downloads
+    ports:
+      - 9117:9117
+    restart: unless-stopped
+
+  bittorrent:
+    image: linuxserver/qbittorrent
+    container_name: qbittorrent
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Shanghai
+      - UMASK_SET=022
+      - WEBUI_PORT=8923
+    volumes:
+      - /home/aether/.media_streaming_stack/qbittorrent:/config
+      - download-data:/downloads
+    ports:
+      - 6881:6881 
+      - 6881:6881/udp
+      - 8923:8923
+    restart: unless-stopped
+
