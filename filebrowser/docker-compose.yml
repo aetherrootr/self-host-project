@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  filebrowser:
+    image: hurlenko/filebrowser
+    ports:
+      - 8445:8080
+    volumes:
+      - /media/data0:/data
+      - /home/aether/.filebrowser:/config
+    environment:
+      - FB_BASEURL=/filebrowser
+    restart: always
