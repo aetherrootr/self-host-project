@@ -1,35 +1,5 @@
 version: "3"
 
-volumes:
-  anime-data:
-    driver: local
-    driver_opts:
-      type: none
-      device: /media/data0/anime
-      o: bind
-  
-  movies-data:
-    driver: local
-    driver_opts:
-      type: none
-      device: /media/data0/movies
-      o: bind
-
-  tvshows-data:
-    driver: local
-    driver_opts:
-      type: none
-      device: /media/data0/anime
-      o: bind
-
-  download-data:
-    driver: local
-    driver_opts:
-      type: none
-      device: /media/data0/download
-      o: bind
-
-
 services:
   jellyfin:
     image: nyanmisaka/jellyfin:latest
@@ -38,6 +8,7 @@ services:
       - PUID=0
       - PGID=0
       - TZ=Asia/Shanghai
+    privileged: true
     volumes:
       - /home/aether/.media_streaming_stack/jellyfin_config:/config
       - /media/data0/:/data/
@@ -56,9 +27,7 @@ services:
       - TZ=Asia/Shanghai
     volumes:
       - /home/aether/.media_streaming_stack/sonarr_config:/config
-      - anime-data:/anime
-      - tvshows-data:/tvshows
-      - download-data:/downloads
+      - /media/data0/:/data/
     ports:
       - 8989:8989
     restart: unless-stopped
@@ -72,8 +41,7 @@ services:
       - TZ=Asia/Shanghai
     volumes:
       - /home/aether/.media_streaming_stack/radarr_config:/config
-      - download-data:/downloads
-      - movies-data:/movies
+      - /media/data0/:/data/
     ports:
       - 7878:7878
     restart: unless-stopped
@@ -87,9 +55,7 @@ services:
       - TZ=Asia/Shanghai
     volumes:
       - /home/aether/.media_streaming_stack/bazarr_config:/config
-      - movies-data:/movies
-      - tvshows-data:/tvshows
-      - anime-data:/anime
+      - /media/data0/:/data/
     ports:
       - 6767:6767
     restart: unless-stopped
@@ -126,9 +92,24 @@ services:
       - 9117:9117
     restart: unless-stopped
 
+  jproxy:
+    image: luckypuppy514/jproxy:latest
+    container_name: jproxy
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Shanghai
+      - JAVA_OPTS=-Xms512m -Xmx512m
+    ports:
+      - 8117:8117
+    volumes:
+      - /home/aether/.media_streaming_stack/jproxy:/app/database
+
   bittorrent:
-    image: linuxserver/qbittorrent
+    image: linuxserver/qbittorrent:4.5.2
     container_name: qbittorrent
+    network_mode: "host"
     environment:
       - PUID=1000
       - PGID=1000
@@ -137,10 +118,6 @@ services:
       - WEBUI_PORT=8923
     volumes:
       - /home/aether/.media_streaming_stack/qbittorrent:/config
-      - download-data:/downloads
-    ports:
-      - 6881:6881 
-      - 6881:6881/udp
-      - 8923:8923
+      - /media/data0/download:/downloads
     restart: unless-stopped
 
