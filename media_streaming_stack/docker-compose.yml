@@ -107,7 +107,7 @@ services:
       - /home/aether/.media_streaming_stack/jproxy:/app/database
 
   bittorrent:
-    image: linuxserver/qbittorrent:4.5.2
+    image: linuxserver/qbittorrent:4.6.2
     container_name: qbittorrent
     network_mode: "host"
     environment:
