@@ -1,5 +1,18 @@
 version: "3"
 
+networks:
+  qbittorrent:
+    enable_ipv6: true
+    driver: macvlan
+    driver_opts:
+      parent: ens18
+    ipam:
+      config:
+        - subnet: "192.168.8.0/24"
+          gateway: "192.168.8.1"
+        - subnet: "fdb8:f550:de95::/64"
+          gateway: "fdb8:f550:de95::1"
+
 services:
   jellyfin:
     image: nyanmisaka/jellyfin:latest
@@ -106,10 +119,13 @@ services:
     volumes:
       - /home/aether/.media_streaming_stack/jproxy:/app/database
 
-  bittorrent:
+  qbittorrent:
     image: linuxserver/qbittorrent:4.6.2
     container_name: qbittorrent
-    network_mode: "host"
+    networks:
+      qbittorrent:
+        ipv4_address: 192.168.8.137
+        ipv6_address: fdb8:f550:de95::137
     environment:
       - PUID=1000
       - PGID=1000
