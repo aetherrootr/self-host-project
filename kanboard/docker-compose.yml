@@ -1,0 +1,10 @@
+version: '2'
+services:
+  kanboard:
+    image: kanboard/kanboard:latest
+    ports:
+      - "1280:80"
+    volumes:
+      - /home/aether/.kanboard/data:/var/www/app/data
+      - /home/aether/.kanboard/plugins:/var/www/app/plugins
+
