@@ -84,50 +84,50 @@
         key: MTcwMjEzNjM1OTIwMzA3NjhmZjY5LTdjMDItNDM1Yi05NDIwLWUwYjc2NjZkMWU2MQ==
 
   - jproxy:
-      icon: http://192.168.8.136:8117/assets/logo-128x128.24b61549.png
+      icon: /icons/jproxy.png
       href: http://192.168.8.136:8117/
       server: local-docker
       container: jproxy
 
 - Tools:
   - it-tools:
-      icon: https://it-tools.corp.aetherrootr.com/favicon.ico
+      icon: /icons/it-tools.ico
       href: https://it-tools.corp.aetherrootr.com
       server: local-docker
       container: it-tools
 
   - cloud-clipboard:
-      icon: https://clipboard.corp.aetherrootr.com/favicon.ico
+      icon: /icons/clipboard.ico
       href: https://clipboard.corp.aetherrootr.com
       server: local-docker
       container: cloud-clipboard
 
   - jitsi-meet:
-      icon: https://meet.corp.aetherrootr.com/static/pwa/icons/icon192.png
+      icon: /icons/meet.png
       href: https://meet.corp.aetherrootr.com/
   
   - kanboard:
-      icon: https://tasks.corp.aetherrootr.com/assets/img/favicon.png
+      icon: /icons/tasks.png
       href: https://tasks.corp.aetherrootr.com
       server: local-docker
       container: kanboard_kanboard_1
 
 - Docs:
   - wikijs:
-      icon: https://wiki.corp.aetherrootr.com/_assets/favicons/favicon-32x32.png
+      icon: /icons/wiki.png
       href: https://wiki.corp.aetherrootr.com/
       server: local-docker
       container: wikijs_wiki_1
 
 - Manager:
   - nginx-proxy-manager:
-      icon: http://192.168.8.136:81/images/favicons/favicon.ico
+      icon: /icons/nginx-proxy-manager.ico
       href: http://192.168.8.136:81
       server: local-docker
       container: nginx-proxy-manager_app_1
 
   - filebrowser:
-      icon: https://files.corp.aetherrootr.com/filebrowser/static/img/logo.svg
+      icon: /icons/files.svg
       href: https://files.corp.aetherrootr.com/
       server: local-docker
       container: filebrowser_filebrowser_1
