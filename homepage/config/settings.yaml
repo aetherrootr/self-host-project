@@ -1,0 +1,26 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/latest/configs/settings
+
+providers:
+  openweathermap: openweathermapapikey
+  weatherapi: weatherapiapikey
+
+title: Homepage
+background: 
+  image: /images/103375408_p0.jpg
+  blur: sm
+  saturate: 50
+  brightness: 100
+  opacity: 90
+headerStyle: boxed
+language: zh-CN
+target: _blank
+hideVersion: false
+quicklaunch:
+  searchDescriptions: true
+layout:
+  Media:
+    style: row
+    columns: 4
+    useEqualHeights: true
