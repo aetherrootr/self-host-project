@@ -2,7 +2,7 @@ version: '3.9'
 services:
   palworld-dedicated-server:
     container_name: palworld-server
-    image: jammsen/palworld-dedicated-server:latest
+    image: jammsen/palworld-dedicated-server:develop
     restart: unless-stopped
     ports:
       - 8211:8211/udp
