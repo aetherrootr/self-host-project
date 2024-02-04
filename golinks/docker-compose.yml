@@ -1,0 +1,13 @@
+---
+version: '3.3'
+services:
+  komga:
+    image: aethertaberu/golinks:latest
+    container_name: golink
+    volumes:
+      - /home/aether/.golinks:/data
+    ports:
+      - 8067:8067
+    environment:
+      - TZ=Asia/Shanghai
+    restart: unless-stopped
