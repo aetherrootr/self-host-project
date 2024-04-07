@@ -91,7 +91,7 @@
 
 - Tools:
   - gitea:
-      icon: /icons/gitea.ico
+      icon: gitea.svg
       href: https://gitea.corp.aetherrootr.com
       server: local-docker
       container: gitea
