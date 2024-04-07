@@ -4,7 +4,7 @@ services:
     image: ghcr.io/gethomepage/homepage:latest
     container_name: homepage
     ports:
-      - 3000:3000
+      - 3001:3000
     volumes:
       - ./config:/app/config
       - ./images:/app/public/images

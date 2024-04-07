@@ -90,6 +90,12 @@
       container: jproxy
 
 - Tools:
+  - gitea:
+      icon: gitea.svg
+      href: https://gitea.corp.aetherrootr.com
+      server: local-docker
+      container: gitea
+
   - it-tools:
       icon: /icons/it-tools.ico
       href: https://it-tools.corp.aetherrootr.com
