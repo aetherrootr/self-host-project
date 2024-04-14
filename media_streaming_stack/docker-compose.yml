@@ -134,6 +134,6 @@ services:
       - WEBUI_PORT=8923
     volumes:
       - /home/aether/.media_streaming_stack/qbittorrent:/config
-      - /media/data0/download:/downloads
+      - /media/data0/download:/data/downloads
     restart: unless-stopped
 
