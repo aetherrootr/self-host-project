@@ -111,12 +111,6 @@
   - jitsi-meet:
       icon: /icons/meet.png
       href: https://meet.corp.aetherrootr.com/
-  
-  - kanboard:
-      icon: /icons/tasks.png
-      href: https://tasks.corp.aetherrootr.com
-      server: local-docker
-      container: kanboard_kanboard_1
 
 - Docs:
   - wikijs:
