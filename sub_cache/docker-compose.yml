@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  server:
+    image: aethertaberu/sub-cache:latest
+    container_name: sub-cache
+    restart: always
+    ports:
+      - "8091:8080"
+    volumes:
+      - "/home/aether/.sub_cache:/config"
